@@ -32,6 +32,18 @@ return [
             "path" => "post/comment",
             "callable" => ["answerController", "postAnswerQuestion"],
         ],
+        [
+            "info" => "Upvote a comment",
+            "requestMethod" => "get",
+            "path" => "up/{userId:digit}/{answerId:digit}/{articleId:digit}",
+            "callable" => ["answerController", "answerUpVote"],
+        ],
+        [
+            "info" => "Downvote a comment",
+            "requestMethod" => "get",
+            "path" => "down/{userId:digit}/{answerId:digit}/{articleId:digit}",
+            "callable" => ["answerController", "answerDownVote"],
+        ],
 
     ]
 ];

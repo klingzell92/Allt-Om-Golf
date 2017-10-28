@@ -1,15 +1,13 @@
 <?php
-//var_dump($questions);
-//var_dump($tags);
-//var_dump($users);
 $user = $di->get("url")->create("user/profile");
 $view = $di->get("url")->create("question");
- ?>
+
+?>
 <div class="startContainer">
     <div class="questions">
     <?php
     if ($questions) {
-     foreach ($questions as $question) :
+        foreach ($questions as $question) :
     ?>
         <div class="questionStart">
 
@@ -25,7 +23,7 @@ $view = $di->get("url")->create("question");
             </div>
         </div>
     <?php
-     endforeach;
+        endforeach;
     }?>
     </div>
     <div class="startInfo">
@@ -37,11 +35,11 @@ $view = $di->get("url")->create("question");
               <div class="tags-panel panel-body">
         <?php
         if ($tags) {
-         foreach ($tags as $tag) :
+            foreach ($tags as $tag) :
         ?>
                         <p><?=$tag->tag?></p>
         <?php
-         endforeach;
+            endforeach;
         }?>
             </div>
           </div>
@@ -54,11 +52,11 @@ $view = $di->get("url")->create("question");
               <div class="tags-panel panel-body">
         <?php
         if ($users) {
-         foreach ($users as $user) :
+            foreach ($users as $user) :
         ?>
                         <p><?=$user->acronym?></p>
         <?php
-         endforeach;
+            endforeach;
         }?>
                 </div>
             </div>

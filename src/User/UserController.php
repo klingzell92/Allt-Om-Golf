@@ -250,4 +250,17 @@ class UserController implements
             $this->di->get("response")->redirect("user/profile");
         }
     }
+
+    /**
+    * Return the user id
+    *
+    *@return int
+    */
+    public function getUserId($username)
+    {
+        $user = new User();
+        $user->setDb($this->di->get("db"));
+        $currentUser = $user->findWhere("acronym = ?", [$username]);
+        return $currentUser->id;
+    }
 }

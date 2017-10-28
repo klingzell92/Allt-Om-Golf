@@ -26,6 +26,12 @@ return [
             "callable" => ["questionController", "showQuestion"],
         ],
         [
+            "info" => "Show a question with sorted comments",
+            "requestMethod" => "get",
+            "path" => "{id:digit}/{sort:alphanum}",
+            "callable" => ["questionController", "showQuestionSort"],
+        ],
+        [
             "info" => "Show the edit page with values",
             "requestMethod" => "get",
             "path" => "edit/{id:digit}",
@@ -44,16 +50,22 @@ return [
             "callable" => ["questionController", "postQuestion"],
         ],
         [
-            "info" => "Post a question",
-            "requestMethod" => "post",
-            "path" => "post",
-            "callable" => ["questionController", "postQuestion"],
-        ],
-        [
             "info" => "Delete Question",
             "requestMethod" => "get",
             "path" => "delete/{id:digit}/{username:alphanum}",
             "callable" => ["questionController", "deletePost"],
+        ],
+        [
+            "info" => "Upvote a question",
+            "requestMethod" => "get",
+            "path" => "up/{userId:digit}/{questionId:digit}",
+            "callable" => ["questionController", "questionUpVote"],
+        ],
+        [
+            "info" => "Downvote a comment",
+            "requestMethod" => "get",
+            "path" => "down/{userId:digit}/{questionId:digit}",
+            "callable" => ["questionController", "questionDownVote"],
         ],
     ]
 ];

@@ -24,6 +24,8 @@ CREATE TABLE proj_question (
     `title` VARCHAR(80) NOT NULL,
     `content` TEXT NOT NULL,
     `gravatar` VARCHAR(255) NOT NULL,
+	`accepted` INTEGER DEFAULT 0,    
+    `points` INTEGER DEFAULT 0,
     `created` DATETIME
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 SELECT * FROM proj_question;
@@ -37,6 +39,8 @@ CREATE TABLE proj_comment (
     `user` VARCHAR(80) NOT NULL,
     `content` TEXT NOT NULL,
     `gravatar` VARCHAR(255) NOT NULL,
+	`accepted` INTEGER DEFAULT 0,
+    `points` INTEGER DEFAULT 0,
     `created` DATETIME
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
@@ -54,6 +58,7 @@ CREATE TABLE proj_answer (
     `questionId` INTEGER,
     `user` VARCHAR(80) NOT NULL,
     `content` TEXT NOT NULL,
+    `points` INTEGER DEFAULT 0,
     `created` DATETIME
 ) ENGINE INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 
@@ -84,3 +89,27 @@ CREATE TABLE proj_q2tag (
     FOREIGN KEY (`questionId`) REFERENCES `proj_question` (`id`)
 )ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
 SELECT * FROM proj_q2tag;
+
+DROP TABLE IF EXISTS questionVotes;
+CREATE TABLE questionVotes (
+	`id` INT AUTO_INCREMENT PRIMARY KEY,
+    `userId` INT,
+    `questionId` INT
+)ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+
+DROP TABLE IF EXISTS commentVotes;
+CREATE TABLE commentVotes (
+	`id` INT AUTO_INCREMENT PRIMARY KEY,
+    `userId` INT,
+    `commentId` INT
+)ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+SELECT * FROM commentVotes;
+
+DROP TABLE IF EXISTS answerVotes;
+CREATE TABLE answerVotes (
+	`id` INT AUTO_INCREMENT PRIMARY KEY,
+    `userId` INT,
+    `answerId` INT
+)ENGINE = INNODB CHARACTER SET utf8 COLLATE utf8_swedish_ci;
+SELECT * FROM answerVotes;
+SELECT id FROM proj_user WHERE acronym = 'doe';

@@ -10,5 +10,5 @@
   </textarea>
   <input type="hidden" name="id" value="<?= $values->id ?>">
   <input type="hidden" name="articleId" value="<?= $articleId ?>">
-  <input type="submit" value="Spara ändringar" class="formButton">
+  <input type="submit" value="Spara ändringar" class="btn btn-success">
 </form>

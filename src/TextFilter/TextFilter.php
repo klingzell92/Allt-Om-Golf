@@ -1,7 +1,5 @@
 <?php
-
 namespace Anax\TextFilter;
-
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
 
@@ -14,7 +12,6 @@ class TextFilter implements InjectionAwareInterface
     use TTextUtilities,
         TShortcode,
         InjectionAwareTrait;
-
 
 
     /**

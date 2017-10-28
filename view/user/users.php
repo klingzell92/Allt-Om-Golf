@@ -1,6 +1,6 @@
 <?php
 $userUrl = $di->get("url")->create("user/profile");
- ?>
+?>
  <div class="users">
      <ul class="rig columns-3">
 <?php

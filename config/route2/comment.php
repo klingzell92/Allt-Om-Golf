@@ -7,12 +7,6 @@ return [
             "path" => "",
             "callable" => ["commentController", "showComments"],
         ],
-        /*[
-            "info" => "Start session",
-            "requestMethod" => null,
-            "path" => "**",
-            "callable" => ["commentController", "start"],
-        ],*/
         [
             "info" => "Delete Post",
             "requestMethod" => "get",
@@ -36,6 +30,24 @@ return [
             "requestMethod" => "post",
             "path" => "post",
             "callable" => ["commentController", "postComment"],
+        ],
+        [
+            "info" => "Upvote a comment",
+            "requestMethod" => "get",
+            "path" => "up/{userId:digit}/{commentId:digit}/{articleId:digit}",
+            "callable" => ["commentController", "commentUpVote"],
+        ],
+        [
+            "info" => "Downvote a comment",
+            "requestMethod" => "get",
+            "path" => "down/{userId:digit}/{commentId:digit}/{articleId:digit}",
+            "callable" => ["commentController", "commentDownVote"],
+        ],
+        [
+            "info" => "Accept an answer",
+            "requestMethod" => "get",
+            "path" => "accept/{commentId:digit}/{questionId:digit}",
+            "callable" => ["commentController", "acceptAnswer"],
         ],
     ]
 ];

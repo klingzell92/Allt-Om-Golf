@@ -1,6 +1,6 @@
 <?php
 $tagsUrl = $di->get("url")->create("tags")
- ?>
+?>
 <div class="tagNavContainer">
     <ul class="tagNav">
         <?php
@@ -9,6 +9,6 @@ $tagsUrl = $di->get("url")->create("tags")
         <li><a href="<?=$tagsUrl?>/<?=$tag->id?>"><?=$tag->tag?></a></li>
         <?php
         }
-         ?>
+            ?>
     </ul>
 </div>

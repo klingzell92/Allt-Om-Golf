@@ -95,7 +95,7 @@ class UserLoginForm extends FormModel
         if ($user->acronym == "admin") {
             $this->di->get("session")->set("admin", $user->acronym);
         }
-        $this->di->get("response")->redirect("user/profile");
+        $this->di->get("response")->redirect("question/start");
         return true;
     }
 }

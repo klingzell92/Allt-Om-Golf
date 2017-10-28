@@ -114,16 +114,16 @@ class QuestionController implements InjectionAwareInterface
 
     public function showQuestions()
     {
-        //$this->start();
-        $question = new Question();
-        $question->setDb($this->di->get("db"));
+        $db = $this->di->get("db");
+        $db->connect();
+        $sql = "SELECT * FROM proj_question  ORDER BY created DESC";
         $tag = new Tag();
         $tag->setDb($this->di->get("db"));
         $q2tag = new q2Tag();
         $q2tag->setDb($this->di->get("db"));
 
         $this->di->get("view")->add("question/index", [
-         "questions" => $question->findAll(),
+         "questions" => $db->executeFetchAll($sql),
          "tags"     => $tag->findAll(),
          "relations" => $q2tag->findAll()
         ]);
@@ -140,13 +140,13 @@ class QuestionController implements InjectionAwareInterface
      *@param int id
      */
 
-    public function showQuestion($id)
+    public function showQuestion($id, $sort = "created")
     {
-        //$this->start();
+        $db = $this->di->get("db");
+        $db->connect();
         $question = new Question();
         $question->setDb($this->di->get("db"));
-        $comment = new Comment();
-        $comment->setDb($this->di->get("db"));
+        $sql = "SELECT * FROM proj_comment WHERE articleId = $id ORDER BY $sort DESC";
         $answer = new Answer();
         $answer->setDb($this->di->get("db"));
         $tag = new Tag();
@@ -158,20 +158,33 @@ class QuestionController implements InjectionAwareInterface
          "question" => $question->findByID($id),
          "tags"     => $tag->findAll(),
          "relations" => $this->getRelations($id),
-         "answers" => $answer->findAll(),
+         "answers" => $answer->findAll()
         ]);
-        $view->add("comment/comments",[
-            "comments" => $comment->findAllWhere("articleId = ?", [$id]),
+        $view->add("comment/comments", [
+            "comments" => $db->executeFetchAll($sql),
             "answers" => $answer->findAll(),
-            "articleId" => $id,
+            "article" => $question->find("id", $id)
         ]);
-        $view->add("comment/create",[
-            "id" => $id,
+        $view->add("comment/create", [
+            "id" => $id
         ]);
        // Render a standard page using layout
         $this->di->get("pageRender")->renderPage([
             "title" => "Question",
         ]);
+    }
+
+
+    /**
+     * Sort the comments for a quesiton
+     *
+     *@param int id
+     *@param string sort
+     */
+
+    public function showQuestionSort($id, $sort)
+    {
+        $this->showQuestion($id, $sort);
     }
 
 
@@ -261,5 +274,73 @@ class QuestionController implements InjectionAwareInterface
         return $relations;
     }
 
+    /**
+    * Upvote a question
+    * @param int questionId
+    *
+    *@return void
+    */
 
+    public function questionUpVote($userId, $questionId)
+    {
+        $question = new Question();
+        $question->setDb($this->di->get("db"));
+        $questionVote = new questionVote();
+        $questionVote->setDb($this->di->get("db"));
+
+        $question->upVote($questionId);
+        $questionVote->addVote($userId, $questionId);
+        $this->di->get("response")->redirect("question/$questionId");
+    }
+
+    /**
+    * Downvote a question
+    * @param int questionId
+    *
+    *@return void
+    */
+
+    public function questionDownVote($userId, $questionId)
+    {
+        $question = new Question();
+        $question->setDb($this->di->get("db"));
+        $questionVote = new questionVote();
+        $questionVote->setDb($this->di->get("db"));
+        $question->downVote($questionId);
+        $questionVote->addVote($userId, $questionId);
+        $this->di->get("response")->redirect("question/$questionId");
+    }
+
+    /**
+    * Check if user has voted on the question
+    *
+    * @return void
+    */
+    public function checkIfVoted($userId, $questionId)
+    {
+        $questionVote = new questionVote();
+        $questionVote->setDb($this->di->get("db"));
+        $exists = $questionVote->findWhere("userId = ? and questionId = ?", [$userId, $questionId]);
+        if ($exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+    * Return number of comments for a quesiton
+    *
+    * @param $articleId
+    *
+    * @return void
+    */
+    public function getNumberOfComments($articleId)
+    {
+        $db = $this->di->get("db");
+        $db->connect();
+        $sql = "SELECT COUNT(id) AS rows FROM proj_comment WHERE articleId = $articleId";
+        $result = $db->executeFetchAll($sql);
+        return $result;
+    }
 }

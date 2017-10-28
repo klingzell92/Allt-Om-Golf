@@ -5,7 +5,9 @@ namespace Anax\Comment;
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
 use \Anax\Comment\Comment;
+use \Anax\Comment\CommentVote;
 use \Anax\User\User;
+use \Anax\Question\Question;
 
 /**
  * A controller for the Comment module
@@ -91,7 +93,6 @@ class CommentController implements InjectionAwareInterface
 
     public function saveEdit()
     {
-        $session = $this->di->get("session");
         $comment = new Comment();
         $comment->setDb($this->di->get("db"));
 
@@ -120,5 +121,82 @@ class CommentController implements InjectionAwareInterface
         $comment->deletePost($postId);
         $user->decreaseActivity($username);
         $this->di->get("response")->redirect("question/$articleId");
+    }
+
+    /**
+    * Upvote a comment
+    * @param int commentId
+    * @param int articleId
+    *
+    *@return void
+    */
+
+    public function commentUpVote($userId, $commentId, $articleId)
+    {
+        $comment = new Comment();
+        $comment->setDb($this->di->get("db"));
+        $commentVote = new commentVote();
+        $commentVote->setDb($this->di->get("db"));
+
+        $comment->upVote($commentId);
+        $commentVote->addVote($userId, $commentId);
+        $this->di->get("response")->redirect("question/$articleId");
+    }
+
+    /**
+    * Downvote a comment
+    * @param int commentId
+    * @param int articleId
+    *
+    *@return void
+    */
+
+    public function commentDownVote($userId, $commentId, $articleId)
+    {
+        $comment = new Comment();
+        $comment->setDb($this->di->get("db"));
+        $commentVote = new commentVote();
+        $commentVote->setDb($this->di->get("db"));
+        $comment->downVote($commentId);
+        $commentVote->addVote($userId, $commentId);
+        $this->di->get("response")->redirect("question/$articleId");
+    }
+
+    /**
+    * Check if user has voted on the comment
+    *
+    * @return void
+    */
+    public function checkIfVoted($userId, $commentId)
+    {
+        $commentVote = new commentVote();
+        $commentVote->setDb($this->di->get("db"));
+        $exists = $commentVote->findWhere("userId = ? and commentId = ?", [$userId, $commentId]);
+        if ($exists) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+    * Accept answer
+    *
+    * @param int $commentId
+    * @param int $quesitonId
+    *
+    * @return void
+    */
+    public function acceptAnswer($commentId, $questionId)
+    {
+        $comment = new Comment();
+        $comment->setDb($this->di->get("db"));
+        $question = new Question();
+        $question->setDb($this->di->get("db"));
+
+        $question->acceptAnswer($questionId);
+        $comment->acceptAnswer($commentId);
+        $this->di->get("response")->redirect("question/$questionId");
+
     }
 }

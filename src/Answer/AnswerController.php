@@ -91,7 +91,6 @@ class AnswerController implements InjectionAwareInterface
 
     public function saveEdit()
     {
-        $session = $this->di->get("session");
         $answer = new Answer();
         $answer->setDb($this->di->get("db"));
         $id = $_POST["id"];
@@ -118,5 +117,61 @@ class AnswerController implements InjectionAwareInterface
         $user->decreaseActivity($comment->user);
         $answer->deleteAnswer($id);
         $this->di->get("response")->redirect("question/$articleId");
+    }
+
+    /**
+    * Upvote a comment
+    * @param int asnwerId
+    * @param int articleId
+    *
+    *@return void
+    */
+
+    public function answerUpVote($userId, $answerId, $articleId)
+    {
+        $answer= new Answer();
+        $answer->setDb($this->di->get("db"));
+        $answerVote = new answerVote();
+        $answerVote->setDb($this->di->get("db"));
+
+        $answer->upVote($answerId);
+        $answerVote->addVote($userId, $answerId);
+        $this->di->get("response")->redirect("question/$articleId");
+    }
+
+    /**
+    * Downvote a comment
+    * @param int answerId
+    * @param int articleId
+    *
+    *@return void
+    */
+
+    public function answerDownVote($userId, $answerId, $articleId)
+    {
+        $answer = new Answer();
+        $answer->setDb($this->di->get("db"));
+        $answerVote = new answerVote();
+        $answerVote->setDb($this->di->get("db"));
+        $answer->downVote($answerId);
+        $answerVote->addVote($userId, $answerId);
+        $this->di->get("response")->redirect("question/$articleId");
+    }
+
+    /**
+    * Check if user has voted on the answer
+    *
+    * @return void
+    */
+    public function checkIfVoted($userId, $answerId)
+    {
+        $answerVote = new answerVote();
+        $answerVote->setDb($this->di->get("db"));
+        $exists = $answerVote->findWhere("userId = ? and answerId = ?", [$userId, $answerId]);
+        if ($exists) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

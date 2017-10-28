@@ -5,7 +5,7 @@
 if ($di->get("session")->has("username") || $di->get("session")->has("admin")) {
 ?>
 <form action="<?= $post ?>" method="post" class="commentSection">
-  Kommentar:<br>
+  Svar:<br>
   <textarea rows="4" cols="50" name="comment" class="input">
   </textarea>
   <input type="hidden" value="<?=$id?>" name="articleId">

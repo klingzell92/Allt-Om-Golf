@@ -25,6 +25,8 @@ class Comment extends ActiveRecordModel
     public $user;
     public $gravatar;
     public $content;
+    public $accepted;
+    public $points;
     public $created;
 
     /**
@@ -82,6 +84,48 @@ class Comment extends ActiveRecordModel
     {
         $this->find("id", $id);
         $this->content = $content;
+        $this->save();
+    }
+
+    /**
+    *Upvote a comment
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function upVote($id)
+    {
+        $this->find("id", $id);
+        $this->points += 1;
+        $this->save();
+    }
+
+    /**
+    *Downvote a comment
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function downVote($id)
+    {
+        $this->find("id", $id);
+        $this->points -= 1;
+        $this->save();
+    }
+
+    /**
+    *Accept a answer
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function acceptAnswer($id)
+    {
+        $this->find("id", $id);
+        $this->accepted = true;
         $this->save();
     }
 }

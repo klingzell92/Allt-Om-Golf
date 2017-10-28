@@ -52,5 +52,4 @@ class q2Tag extends ActiveRecordModel
     {
         $this->deleteWhere("questionId = ?", [$questionId]);
     }
-
 }

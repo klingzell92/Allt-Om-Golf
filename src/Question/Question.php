@@ -25,6 +25,8 @@ class Question extends ActiveRecordModel
     public $title;
     public $gravatar;
     public $content;
+    public $accepted;
+    public $points;
     public $created;
 
     /**
@@ -83,6 +85,48 @@ class Question extends ActiveRecordModel
         $this->find("id", $id);
         $this->title = $title;
         $this->content = $content;
+        $this->save();
+    }
+
+    /**
+    *Upvote a question
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function upVote($id)
+    {
+        $this->find("id", $id);
+        $this->points += 1;
+        $this->save();
+    }
+
+    /**
+    *Downvote a question
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function downVote($id)
+    {
+        $this->find("id", $id);
+        $this->points -= 1;
+        $this->save();
+    }
+
+    /**
+    *Accept a answer
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function acceptAnswer($id)
+    {
+        $this->find("id", $id);
+        $this->accepted = true;
         $this->save();
     }
 }

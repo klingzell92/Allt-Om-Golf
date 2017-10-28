@@ -64,7 +64,5 @@ class Tag extends ActiveRecordModel
         } else {
             $this->delete($tagId);
         }
-
     }
-
 }

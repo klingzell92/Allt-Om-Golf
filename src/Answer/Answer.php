@@ -25,6 +25,7 @@ class Answer extends ActiveRecordModel
     public $questionId;
     public $user;
     public $content;
+    public $points;
     public $created;
 
     /**
@@ -98,6 +99,33 @@ class Answer extends ActiveRecordModel
     {
         $this->find("id", $id);
         $this->content = $content;
+        $this->save();
+    }
+    /**
+    *Upvote a comment
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function upVote($id)
+    {
+        $this->find("id", $id);
+        $this->points += 1;
+        $this->save();
+    }
+
+    /**
+    *Downvote a comment
+    *
+    *@param int $id
+    *
+    *@return void
+    */
+    public function downVote($id)
+    {
+        $this->find("id", $id);
+        $this->points -= 1;
         $this->save();
     }
 }

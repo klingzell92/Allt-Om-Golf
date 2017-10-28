@@ -7,9 +7,9 @@ $admin = $di->get("url")->create("user/admin");
 <?= $form ?>
 
 
-<a href="<?= $profile ?>" class="navButton">Profil</a>
+<a href="<?= $profile ?>">Profil</a>
 
 <?php if ($di->get("session")->has("admin")) {?>
-    <a href="<?=$admin?>" class="navButton">Admin</a>
+    <a href="<?=$admin?>">Admin</a>
 <?php } ?>
 </div>

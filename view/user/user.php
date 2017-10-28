@@ -2,7 +2,7 @@
 $article = $di->get("url")->create("question");
 $edit = $di->get("url")->create("user/update");
 $admin = $di->get("url")->create("user/admin");
- ?>
+    ?>
 <div class="profileContainer">
     <div class="profile">
 
@@ -19,17 +19,17 @@ $admin = $di->get("url")->create("user/admin");
     if ($di->get("session")->has("username")) {
         if ($di->get("session")->get("username") == $user->acronym) {
     ?>
-    <a href="<?=$edit?>">Redigera</a>
+    <a href="<?=$edit?>/<?=$user->id?>">Redigera</a>
     <?php if ($di->get("session")->has("admin")) {
-            if ($di->get("session")->get("admin") == $user->acronym) {
+        if ($di->get("session")->get("admin") == $user->acronym) {
             ?>
                 <a href="<?=$admin?>">Admin</a>
     <?php
-                }
-            }
+        }
+}
         }
     }
-     ?>
+        ?>
      </div>
 </div>
 <div class="userQnA">
@@ -42,7 +42,7 @@ $admin = $di->get("url")->create("user/admin");
         <p><?=$question->created?></p>
         <?php
         }
-         ?>
+            ?>
     </div>
 
     <div class="userAnswers">
@@ -54,7 +54,7 @@ $admin = $di->get("url")->create("user/admin");
         <p><?=$answer->created?></p>
         <?php
         }
-         ?>
+            ?>
     </div>
     <div class="userComments">
         <h3>Kommentarer</h3>
@@ -65,6 +65,6 @@ $admin = $di->get("url")->create("user/admin");
         <p class="created"><?=$comment->created?></p>
         <?php
         }
-         ?>
+            ?>
     </div>
 </div>
