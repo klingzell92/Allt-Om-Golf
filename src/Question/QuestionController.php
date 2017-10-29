@@ -70,7 +70,7 @@ class QuestionController implements InjectionAwareInterface
         $question->setDb($this->di->get("db"));
         $tag = new Tag();
         $tag->setDb($this->di->get("db"));
-        $q2tag = new q2Tag();
+        $q2tag = new Q2Tag();
         $q2tag->setDb($this->di->get("db"));
         $user = new User();
         $user->setDb($this->di->get("db"));
@@ -119,7 +119,7 @@ class QuestionController implements InjectionAwareInterface
         $sql = "SELECT * FROM proj_question  ORDER BY created DESC";
         $tag = new Tag();
         $tag->setDb($this->di->get("db"));
-        $q2tag = new q2Tag();
+        $q2tag = new Q2Tag();
         $q2tag->setDb($this->di->get("db"));
 
         $this->di->get("view")->add("question/index", [
@@ -242,7 +242,7 @@ class QuestionController implements InjectionAwareInterface
         $question->setDb($this->di->get("db"));
         $user = new User();
         $user->setDb($this->di->get("db"));
-        $q2tag = new q2Tag();
+        $q2tag = new Q2Tag();
         $q2tag->setDb($this->di->get("db"));
         $tag = new Tag();
         $tag->setDb($this->di->get("db"));
@@ -268,47 +268,10 @@ class QuestionController implements InjectionAwareInterface
 
     public function getRelations($questionId)
     {
-        $q2tag = new q2Tag();
+        $q2tag = new Q2Tag();
         $q2tag->setDb($this->di->get("db"));
         $relations = $q2tag->findAllWhere("questionId = ?", [$questionId]);
         return $relations;
-    }
-
-    /**
-    * Upvote a question
-    * @param int questionId
-    *
-    *@return void
-    */
-
-    public function questionUpVote($userId, $questionId)
-    {
-        $question = new Question();
-        $question->setDb($this->di->get("db"));
-        $questionVote = new questionVote();
-        $questionVote->setDb($this->di->get("db"));
-
-        $question->upVote($questionId);
-        $questionVote->addVote($userId, $questionId);
-        $this->di->get("response")->redirect("question/$questionId");
-    }
-
-    /**
-    * Downvote a question
-    * @param int questionId
-    *
-    *@return void
-    */
-
-    public function questionDownVote($userId, $questionId)
-    {
-        $question = new Question();
-        $question->setDb($this->di->get("db"));
-        $questionVote = new questionVote();
-        $questionVote->setDb($this->di->get("db"));
-        $question->downVote($questionId);
-        $questionVote->addVote($userId, $questionId);
-        $this->di->get("response")->redirect("question/$questionId");
     }
 
     /**

@@ -51,7 +51,6 @@ class UserController implements
         ]);
 
         $pageRender->renderPage(["title" => $title]);
-
     }
 
     /**

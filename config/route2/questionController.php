@@ -59,13 +59,13 @@ return [
             "info" => "Upvote a question",
             "requestMethod" => "get",
             "path" => "up/{userId:digit}/{questionId:digit}",
-            "callable" => ["questionController", "questionUpVote"],
+            "callable" => ["questionVoteController", "questionUpVote"],
         ],
         [
             "info" => "Downvote a comment",
             "requestMethod" => "get",
             "path" => "down/{userId:digit}/{questionId:digit}",
-            "callable" => ["questionController", "questionDownVote"],
+            "callable" => ["questionVoteController", "questionDownVote"],
         ],
     ]
 ];

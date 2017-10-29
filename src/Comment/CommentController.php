@@ -197,6 +197,5 @@ class CommentController implements InjectionAwareInterface
         $question->acceptAnswer($questionId);
         $comment->acceptAnswer($commentId);
         $this->di->get("response")->redirect("question/$questionId");
-
     }
 }

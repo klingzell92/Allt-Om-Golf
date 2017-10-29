@@ -138,6 +138,14 @@ return [
                 return $obj;
             }
         ],
+        "questionVoteController" => [
+            "shared" => true,
+            "callback" => function () {
+                $obj = new \Anax\Question\QuestionVoteController();
+                $obj->setDI($this);
+                return $obj;
+            }
+        ],
         "answerController" => [
             "shared" => true,
             "callback" => function () {

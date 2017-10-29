@@ -27,7 +27,7 @@ class TagController implements InjectionAwareInterface
         $question->setDb($this->di->get("db"));
         $tag = new Tag();
         $tag->setDb($this->di->get("db"));
-        $q2tag = new q2Tag();
+        $q2tag = new Q2Tag();
         $q2tag->setDb($this->di->get("db"));
 
         $this->di->get("view")->add("tags/tags", [
@@ -58,7 +58,7 @@ class TagController implements InjectionAwareInterface
         $question->setDb($this->di->get("db"));
         $tag = new Tag();
         $tag->setDb($this->di->get("db"));
-        $q2tag = new q2Tag();
+        $q2tag = new Q2Tag();
         $q2tag->setDb($this->di->get("db"));
 
         $questions = $question->findAll();

@@ -7,7 +7,7 @@ use \Anax\Database\ActiveRecordModel;
 /**
  * A database driven model.
  */
-class q2Tag extends ActiveRecordModel
+class Q2Tag extends ActiveRecordModel
 {
 
     /**

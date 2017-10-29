@@ -52,7 +52,7 @@ if ($questions) {
                 }
                     ?>
                 <p class="questionCreated"><?=$question->created?></p>
-                <p class="numOfComments">Kommentarer: <?=$showComments?></p>
+                <p class="numOfComments">Svar: <?=$showComments?></p>
                 <table class="edit">
                     <tr>
                         <td>

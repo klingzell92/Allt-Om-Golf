@@ -20,13 +20,14 @@ $admin = $di->get("url")->create("user/admin");
         if ($di->get("session")->get("username") == $user->acronym) {
     ?>
     <a href="<?=$edit?>/<?=$user->id?>">Redigera</a>
-    <?php if ($di->get("session")->has("admin")) {
+    <?php
+    if ($di->get("session")->has("admin")) {
         if ($di->get("session")->get("admin") == $user->acronym) {
-            ?>
+    ?>
                 <a href="<?=$admin?>">Admin</a>
     <?php
         }
-}
+    }
         }
     }
         ?>
