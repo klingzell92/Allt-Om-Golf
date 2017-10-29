@@ -1,9 +1,7 @@
-[![Build Status](https://travis-ci.org/klingzell92/Comment.svg?branch=master)](https://travis-ci.org/klingzell92/Comment)
-[![CircleCI](https://circleci.com/gh/klingzell92/Comment.svg?style=svg)](https://circleci.com/gh/klingzell92/Comment)
+[![Build Status](https://travis-ci.org/klingzell92/Allt-Om-Golf.svg?branch=master)](https://travis-ci.org/klingzell92/Allt-Om-Golf)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/klingzell92/Comment/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/klingzell92/Comment/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/klingzell92/Comment/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/klingzell92/Comment/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/klingzell92/Comment/badges/build.png?b=master)](https://scrutinizer-ci.com/g/klingzell92/Comment/build-status/master)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8ea2a429-b530-428f-8250-fe21f7131c65/mini.png)](https://insight.sensiolabs.com/projects/8ea2a429-b530-428f-8250-fe21f7131c65)
 
 
 Allt Om Golf
